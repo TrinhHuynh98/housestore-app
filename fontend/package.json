@@ -19,6 +19,7 @@
     "material-table": "^1.69.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-google-charts": "^4.0.0",
     "react-helmet-async": "^1.2.3",
     "react-paypal-button-v2": "^2.6.3",
     "react-redux": "^7.2.6",

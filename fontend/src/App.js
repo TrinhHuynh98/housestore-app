@@ -21,6 +21,7 @@ import OrderListScreen from './screen/OrderListScreen';
 import UserListScreen from './screen/UserListScreen';
 import Header from './components/Layout/Header';
 import SearchScreen from './screen/SearchScreen';
+import DashboardScreen from './screen/DashboardScreen';
 // import MapScreen from './screen/MapScreen';
 
 function App() {
@@ -57,6 +58,14 @@ function App() {
             }
             exact
           />
+          <Route
+            path="/dashboard"
+            element={
+              <AdminRouter>
+                <DashboardScreen />
+              </AdminRouter>
+            }
+          />
           <Route path="/product/:id/edit" element={<ProductEditScreen />} />
           <Route
             path="/orderlist"
@@ -87,7 +96,7 @@ function App() {
             exact
           ></Route>
           <Route
-            path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order"
+            path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order/pageNumber/:pageNumber"
             element={<SearchScreen />}
             exact
           ></Route>

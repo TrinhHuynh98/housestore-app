@@ -39,14 +39,22 @@ export const listProducts = () => async (dispatch) => {
 };
 
 export const listProductsSearch =
-  ({ name = '', category = '', min = 0, max = 0, rating = 0, order = '' }) =>
+  ({
+    name = '',
+    category = '',
+    min = 0,
+    max = 0,
+    rating = 0,
+    order = '',
+    pageNumber = '',
+  }) =>
   async (dispatch) => {
     dispatch({
       type: PRODUCT_SEARCH_REQUEST,
     });
     try {
       const { data } = await axios.get(
-        `/api/products/search/name?name=${name}&category=${category}&min=${min}&max=${max}&rating=${rating}&order=${order}`
+        `/api/products/search/name?pageNumber=${pageNumber}&name=${name}&category=${category}&min=${min}&max=${max}&rating=${rating}&order=${order}`
       );
       dispatch({ type: PRODUCT_SEARCH_SUCCESS, payload: data });
     } catch (error) {

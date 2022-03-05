@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { listCategory, listProductsSearch } from '../actions/productActions';
+import { listProductsSearch } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import Messagebox from '../components/Messagebox';
 import Products from '../components/Products';
@@ -29,20 +29,22 @@ export default function SearchScreen(props) {
     max = 0,
     rating = 0,
     order = 'newest',
+    pageNumber = 1,
   } = useParams();
 
   const productSearch = useSelector((state) => state.productSearch);
-  const { loading, error, products } = productSearch;
+  const { loading, error, products, page, pages } = productSearch;
   const categoryList = useSelector((state) => state.categoryList);
   const {
     loading: loadingCategory,
     error: errorCategory,
-    products: categories,
+    categories,
   } = categoryList;
 
   useEffect(() => {
     dispatch(
       listProductsSearch({
+        pageNumber,
         name: name !== 'all' ? name : '',
         category: category !== 'all' ? category : '',
         min,
@@ -51,16 +53,17 @@ export default function SearchScreen(props) {
         order,
       })
     );
-  }, [dispatch, name, category, min, max, rating]);
+  }, [dispatch, name, category, min, max, rating, pageNumber]);
 
   const getFilterUrl = (filter) => {
+    const filterPage = filter.page || pageNumber;
     const filteCategory = filter.category || category;
     const filterName = filter.name || name;
     const filterRating = filter.rating || rating;
     const sortOrder = filter.order || order;
     const filterMin = filter.min ? filter.min : filter.min === 0 ? 0 : min;
     const filterMax = filter.max ? filter.max : filter.max === 0 ? 0 : max;
-    return `/search/category/${filteCategory}/name/${filterName}/min/${filterMin}/max/${filterMax}/rating/${filterRating}/order/${sortOrder}`;
+    return `/search/category/${filteCategory}/name/${filterName}/min/${filterMin}/max/${filterMax}/rating/${filterRating}/order/${sortOrder}/pageNumber/${filterPage}`;
   };
 
   console.log('product', products);
@@ -190,6 +193,13 @@ export default function SearchScreen(props) {
                       ))}
                     </Grid>
                   </Box>
+                  <div>
+                    {[...Array(pages).keys()].map((x) => (
+                      <Link key={x + 1} to={getFilterUrl({ page: x + 1 })}>
+                        {x + 1}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               </>
             )}
