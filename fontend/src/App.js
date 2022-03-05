@@ -21,6 +21,7 @@ import OrderListScreen from './screen/OrderListScreen';
 import UserListScreen from './screen/UserListScreen';
 import Header from './components/Layout/Header';
 import SearchScreen from './screen/SearchScreen';
+// import MapScreen from './screen/MapScreen';
 
 function App() {
   return (
@@ -90,6 +91,14 @@ function App() {
             element={<SearchScreen />}
             exact
           ></Route>
+          {/* <Route
+            path="/map"
+            element={
+              <PrivateRouter>
+                <MapScreen />
+              </PrivateRouter>
+            }
+          /> */}
         </Routes>
       </BrowserRouter>
     </>

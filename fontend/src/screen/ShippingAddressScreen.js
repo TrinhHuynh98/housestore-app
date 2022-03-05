@@ -15,9 +15,19 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ShippingAddressScreen() {
   const navigate = useNavigate();
+
   const userSignin = useSelector((state) => state.userSignin);
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
+  const [lat, setLat] = useState(shippingAddress.lat);
+  const [lng, setLng] = useState(shippingAddress.lng);
+
+  console.log('shippingAddress', shippingAddress);
+
+  const userAddressMap = useSelector((state) => state.userAddressMap);
+  const { address: addressMap } = userAddressMap;
+
+  console.log('userAddressMap', userAddressMap);
   const { userInfo } = userSignin;
   if (!userInfo) {
     navigate('/signin');
@@ -32,12 +42,58 @@ export default function ShippingAddressScreen() {
 
   const shippingHandler = (e) => {
     e.preventDefault();
+    const newLat = addressMap ? addressMap.lat : lat;
+    const newLng = addressMap ? addressMap.lng : lng;
+    if (addressMap) {
+      setLat(addressMap.lat);
+      setLng(addressMap.lng);
+    }
+    let moveOn = true;
+    if (!newLat || !newLng) {
+      moveOn = window.confirm(
+        'You did not set your location on map. Continue?'
+      );
+    }
+    if (moveOn) {
+      dispatch(
+        saveShippingAdresss({
+          fullName,
+          address,
+          city,
+          postalCode,
+          country,
+          lat: newLat,
+          lng: newLng,
+        })
+      );
+      navigate('/payment');
+    }
     dispatch(
-      saveShippingAdresss({ fullName, address, city, postalCode, country })
+      saveShippingAdresss({
+        fullName,
+        address,
+        city,
+        postalCode,
+        country,
+      })
     );
     navigate('/payment');
   };
 
+  const chooseOnMap = () => {
+    dispatch(
+      saveShippingAdresss({
+        fullName,
+        address,
+        city,
+        postalCode,
+        country,
+        lat,
+        lng,
+      })
+    );
+    navigate('/map');
+  };
   return (
     <div>
       <Helmet>Shipping Adresss</Helmet>
@@ -112,6 +168,11 @@ export default function ShippingAddressScreen() {
               setCountry(e.target.value);
             }}
           />
+        </FormControl>
+        <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
+          <Button variant="outlined" onClick={chooseOnMap}>
+            Choose On Map
+          </Button>
         </FormControl>
         <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
           <Button variant="outlined" onClick={shippingHandler}>
