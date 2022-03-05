@@ -16,6 +16,7 @@ import {
   productDeleteReducer,
   productDetailsReducer,
   productListReducer,
+  productReviewCreateReducer,
   productSearchReducer,
   productUpdateReducer,
 } from './reducers/productReducers';
@@ -67,6 +68,7 @@ const reducer = combineReducers({
   userUpdateAdmibSide: userUpdateReducer,
   productSearch: productSearchReducer,
   categoryList: categoryListReducer,
+  productReviewCreate: productReviewCreateReducer,
 });
 
 const composeEnhander = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

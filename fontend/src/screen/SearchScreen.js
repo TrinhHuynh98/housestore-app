@@ -6,17 +6,30 @@ import {
   CardActionArea,
   CardContent,
   Typography,
+  Select,
+  MenuItem,
+  InputLabel,
 } from '@mui/material';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { listCategory, listProductsSearch } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import Messagebox from '../components/Messagebox';
 import Products from '../components/Products';
+import { prices, ratings } from '../utils';
+import Rating from '../components/Rating';
 
 export default function SearchScreen(props) {
   const dispatch = useDispatch();
-  const { name = 'all', category = '' } = useParams();
+  const navigate = useNavigate();
+  const {
+    name = 'all',
+    category = 'all',
+    min = 0,
+    max = 0,
+    rating = 0,
+    order = 'newest',
+  } = useParams();
 
   const productSearch = useSelector((state) => state.productSearch);
   const { loading, error, products } = productSearch;
@@ -32,15 +45,25 @@ export default function SearchScreen(props) {
       listProductsSearch({
         name: name !== 'all' ? name : '',
         category: category !== 'all' ? category : '',
+        min,
+        max,
+        rating,
+        order,
       })
     );
-  }, [dispatch, name, category]);
+  }, [dispatch, name, category, min, max, rating]);
 
   const getFilterUrl = (filter) => {
     const filteCategory = filter.category || category;
     const filterName = filter.name || name;
-    return `/search/category/${filteCategory}/name/${filterName}`;
+    const filterRating = filter.rating || rating;
+    const sortOrder = filter.order || order;
+    const filterMin = filter.min ? filter.min : filter.min === 0 ? 0 : min;
+    const filterMax = filter.max ? filter.max : filter.max === 0 ? 0 : max;
+    return `/search/category/${filteCategory}/name/${filterName}/min/${filterMin}/max/${filterMax}/rating/${filterRating}/order/${sortOrder}`;
   };
+
+  console.log('product', products);
 
   console.log('categories', categories);
 
@@ -60,6 +83,21 @@ export default function SearchScreen(props) {
             ) : (
               <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea>
+                  <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={order}
+                    label="sort"
+                    onChange={(e) => {
+                      navigate(getFilterUrl({ order: e.target.value }));
+                    }}
+                  >
+                    <MenuItem value="newest">Newest Arrivals</MenuItem>
+                    <MenuItem value="lowest">Price: Low to High</MenuItem>
+                    <MenuItem value="highest">Price: High to Low</MenuItem>
+                    <MenuItem value="toprated">Avg: Customer Reviews</MenuItem>
+                  </Select>
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                       {products.length} Results
@@ -82,13 +120,43 @@ export default function SearchScreen(props) {
                         Any
                       </Typography>
                     </Link>
-                  </CardContent>
-                  <CardContent>
                     {categories.map((item) => (
                       <Link to={getFilterUrl({ category: item })}>
                         <Typography gutterBottom variant="h5" component="div">
                           {item}
                         </Typography>
+                      </Link>
+                    ))}
+                  </CardContent>
+
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      Price
+                    </Typography>
+
+                    {prices.map((p) => (
+                      <Link
+                        key={p.name}
+                        to={getFilterUrl({ min: p.min, max: p.max })}
+                      >
+                        <Typography gutterBottom variant="h5" component="div">
+                          {p.name}
+                        </Typography>
+                      </Link>
+                    ))}
+                  </CardContent>
+
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      Avg. Customer Review
+                    </Typography>
+
+                    {ratings.map((r) => (
+                      <Link
+                        key={r.name}
+                        to={getFilterUrl({ rating: r.rating })}
+                      >
+                        <Rating caption={' & up'} rating={r.rating} />
                       </Link>
                     ))}
                   </CardContent>

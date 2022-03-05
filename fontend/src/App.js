@@ -21,21 +21,8 @@ import OrderListScreen from './screen/OrderListScreen';
 import UserListScreen from './screen/UserListScreen';
 import Header from './components/Layout/Header';
 import SearchScreen from './screen/SearchScreen';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { listCategory } from './actions/productActions';
 
 function App() {
-  const dispatch = useDispatch();
-  const productCategoryList = useSelector((state) => state.categoryList);
-  const {
-    loading: loadingCategory,
-    error: errorCategory,
-    categories,
-  } = productCategoryList;
-  useEffect(() => {
-    dispatch(listCategory());
-  }, [dispatch]);
   return (
     <>
       <ToastContainer position="bottom-center" limit={1} />
@@ -95,6 +82,11 @@ function App() {
           ></Route>
           <Route
             path="/search/category/:category/name/:name"
+            element={<SearchScreen />}
+            exact
+          ></Route>
+          <Route
+            path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order"
             element={<SearchScreen />}
             exact
           ></Route>
