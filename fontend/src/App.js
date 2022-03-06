@@ -22,9 +22,15 @@ import UserListScreen from './screen/UserListScreen';
 import Header from './components/Layout/Header';
 import SearchScreen from './screen/SearchScreen';
 import DashboardScreen from './screen/DashboardScreen';
+import SupportScreen from './screen/SupportScreen';
+import ChartBox from './components/ChartBox';
+import { useSelector } from 'react-redux';
 // import MapScreen from './screen/MapScreen';
 
 function App() {
+  // const dispatch = useDispatch();
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
   return (
     <>
       <ToastContainer position="bottom-center" limit={1} />
@@ -84,6 +90,14 @@ function App() {
               </AdminRouter>
             }
           />
+          <Route
+            path="/support"
+            element={
+              <AdminRouter>
+                <SupportScreen />
+              </AdminRouter>
+            }
+          />
           <Route path="/search/:name" element={<SearchScreen />} exact></Route>
           <Route
             path="/search/category/:category"
@@ -109,6 +123,9 @@ function App() {
             }
           /> */}
         </Routes>
+        <div>
+          {userInfo && !userInfo.isAdmin && <ChartBox userInfo={userInfo} />}
+        </div>
       </BrowserRouter>
     </>
   );

@@ -21,6 +21,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import '../../App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { signout } from '../../actions/userActions';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
 // import SearchBox from '../SearchBox';
 
 const pages = [
@@ -83,13 +86,37 @@ function Header() {
         style={{ backgroundColor: 'black' }}
       >
         <Container maxWidth="xl">
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-            }}
-          >
-            <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <FacebookIcon
+                style={{
+                  color: 'white',
+                  marginTop: 20,
+                  marginRight: 10,
+                  height: 20,
+                  width: 20,
+                }}
+              />
+              <TwitterIcon
+                style={{
+                  color: 'white',
+                  marginTop: 20,
+                  marginRight: 10,
+                  height: 20,
+                  width: 20,
+                }}
+              />
+              <InstagramIcon
+                style={{
+                  color: 'white',
+                  marginTop: 20,
+                  marginRight: 10,
+                  height: 20,
+                  width: 20,
+                }}
+              />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <TextField
                 id="input-with-icon-textfield"
                 style={{ color: 'white', marginTop: 10, marginRight: 10 }}
@@ -105,22 +132,21 @@ function Header() {
                 }}
                 variant="standard"
               />
-            </div>
-
-            <Toolbar disableGutters>
-              {cartItems.length > 0 ? (
-                <Badge badgeContent={cartItems.length} color="success">
+              <Toolbar disableGutters>
+                {cartItems.length > 0 ? (
+                  <Badge badgeContent={cartItems.length} color="success">
+                    <Link to={'/cart'}>
+                      <ShoppingCartOutlinedIcon style={{ color: 'white' }} />
+                    </Link>
+                  </Badge>
+                ) : (
                   <Link to={'/cart'}>
                     <ShoppingCartOutlinedIcon style={{ color: 'white' }} />
                   </Link>
-                </Badge>
-              ) : (
-                <Link to={'/cart'}>
-                  <ShoppingCartOutlinedIcon style={{ color: 'white' }} />
-                </Link>
-              )}
-            </Toolbar>
-          </Box>
+                )}
+              </Toolbar>
+            </div>
+          </div>
         </Container>
       </AppBar>
 
@@ -321,6 +347,11 @@ function Header() {
                     <MenuItem>
                       <Link to="/userlist">
                         <Typography textAlign="center">Users</Typography>
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link to="/support">
+                        <Typography textAlign="center">Support</Typography>
                       </Link>
                     </MenuItem>
                   </Menu>
