@@ -27,7 +27,7 @@ export default function HomeScreen() {
       <Category />
       <div>
         <Helmet>
-          <title>Amazone</title>
+          <title>HouseStore</title>
         </Helmet>
 
         {loading ? (
