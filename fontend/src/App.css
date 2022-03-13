@@ -32,6 +32,9 @@ button.small {
 .table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20;
+  margin-left: 20;
+  margin-right: 20;
 }
 .table tbody tr:nth-of-type(odd) {
   background-color: #f4f4f4;

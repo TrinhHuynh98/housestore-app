@@ -25,6 +25,8 @@ import {
   USER_DETAILS_RESET,
   USER_UPDATE_RESET_ADMIN_SIDE,
 } from '../constants/userContants';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function UserListScreen() {
   const dispatch = useDispatch();
@@ -110,6 +112,7 @@ export default function UserListScreen() {
         <Messagebox>{error}</Messagebox>
       ) : (
         <>
+          <h2 style={{ textAlign: 'center' }}>Edit User</h2>
           <table className="table">
             <thead>
               <tr>
@@ -128,9 +131,21 @@ export default function UserListScreen() {
                   <td>{user.email}</td>
                   <td>{user.isAdmin ? 'YES' : 'NO'}</td>
                   <td>
-                    <Button onClick={() => handleClickOpen(user)}>Edit</Button>
+                    <Button onClick={() => handleClickOpen(user)}>
+                      <EditIcon
+                        style={{
+                          backgroundColor: '#1F3137',
+                          color: 'white',
+                        }}
+                      />
+                    </Button>
                     <Button onClick={() => deleteUserHandler(user)}>
-                      Delete
+                      <DeleteIcon
+                        style={{
+                          backgroundColor: '#1F3137',
+                          color: 'white',
+                        }}
+                      />
                     </Button>
                   </td>
                 </tr>

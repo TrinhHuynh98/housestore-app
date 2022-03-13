@@ -78,7 +78,6 @@ export default function OrderScreen() {
         <Messagebox>{error}</Messagebox>
       ) : (
         <>
-          <h1>Order Detail </h1>
           <Box sx={{ flexGrow: 1, marginLeft: 10, marginRight: 10 }}>
             <Grid
               container
@@ -86,21 +85,21 @@ export default function OrderScreen() {
               columns={{ xs: 4, sm: 8, md: 12 }}
             >
               <Grid item xs={8} sm={8} md={8} style={{ marginTop: 20 }}>
-                <Card sx={{ maxWidth: 345 }}>
-                  <Typography gutterBottom variant="h5" component="div">
-                    Shipping
-                  </Typography>
+                <Card style={{ marginTop: 10 }}>
+                  <p>
+                    <b>Shipping</b>
+                  </p>
+
                   <CardActionArea>
                     <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        Name: {order.shippingAddress.fullName}
-                      </Typography>
-                      <Typography gutterBottom variant="h5" component="div">
+                      <p>Name: {order.shippingAddress.fullName}</p>
+                      <p>
                         Adress: {order.shippingAddress.address},{' '}
                         {order.shippingAddress.city} ,
                         {order.shippingAddress.postalCode},{' '}
                         {order.shippingAddress.country}
-                      </Typography>
+                      </p>
+
                       {order.isDelivered ? (
                         <Messagebox variant="danger">
                           Delivered at {order.deliveredAt}
@@ -112,10 +111,10 @@ export default function OrderScreen() {
                     </CardContent>
                   </CardActionArea>
                 </Card>
-                <Card sx={{ maxWidth: 345 }}>
-                  <Typography gutterBottom variant="h5" component="div">
-                    Payment Method: {order.paymentMethod}
-                  </Typography>
+                <Card style={{ marginTop: 10 }}>
+                  <p>
+                    <b>Payment Method:</b> {order.paymentMethod}
+                  </p>
                   {order.isPaid ? (
                     <Messagebox variant="danger">
                       Paid at {order.paidAt}
@@ -124,41 +123,28 @@ export default function OrderScreen() {
                     <Messagebox variant="danger">Not Paid</Messagebox>
                   )}
                 </Card>
-                <Card sx={{ maxWidth: 345 }}>
-                  <Typography gutterBottom variant="h5" component="div">
-                    Cart Items
-                  </Typography>
+                <Card style={{ marginTop: 10 }}>
+                  <p>
+                    <b>Cart Items</b>
+                  </p>
+
                   <CardActionArea>
                     <CardContent>
                       {order.orderItems.map((item) => (
                         <Grid container spacing={{ md: 3 }}>
                           <Grid item xs={6} sm={6} md={6}>
                             <Link to={`/product/${item.slug}`}>
-                              <span>
-                                <Avatar
-                                  sx={{ width: 100, height: 100 }}
-                                  src={item.image}
-                                  alt={item.name}
-                                />
-                                <Typography
-                                  gutterBottom
-                                  variant="h5"
-                                  component="div"
-                                >
-                                  {item.name}
-                                </Typography>
-                              </span>
+                              <Avatar
+                                sx={{ width: 100, height: 100 }}
+                                src={item.image}
+                                alt={item.name}
+                              />
                             </Link>
+                            <p>{item.name}</p>
                           </Grid>
 
                           <Grid item xs={6} sm={6} md={6}>
-                            <Typography
-                              gutterBottom
-                              variant="h5"
-                              component="div"
-                            >
-                              Price: $ {item.price}
-                            </Typography>
+                            <p> Price: $ {item.price}</p>
                           </Grid>
                         </Grid>
                       ))}
@@ -170,13 +156,12 @@ export default function OrderScreen() {
               </Grid>
 
               <Grid item xs={4} sm={4} md={4} style={{ marginTop: 20 }}>
-                <Typography gutterBottom variant="h5" component="div">
-                  Order Summary
-                </Typography>
-                <Card sx={{ maxWidth: 345 }}>
-                  <Typography gutterBottom variant="h5" component="div">
-                    Items
-                  </Typography>
+                <p>
+                  <b>Order Summary</b>
+                </p>
+                <Card>
+                  <p>Items</p>
+
                   <CardActionArea>
                     <CardContent>
                       <Grid container spacing={{ md: 3 }}>
@@ -215,16 +200,7 @@ export default function OrderScreen() {
                           ${order.totalPrice}
                         </Grid>
                       </Grid>
-                      {/* <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
-                        <Button
-                          variant="outlined"
-                          onClick={placeOrderHandler}
-                          disabled={cart.cartItems.length === 0}
-                        >
-                          Place Order
-                        </Button>
-                
-                      </FormControl> */}
+
                       {!order.isPaid && (
                         <>
                           {!sdkReady ? (

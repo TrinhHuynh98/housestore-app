@@ -218,7 +218,15 @@ export default function ProductEditScreen() {
         </FormControl>
 
         <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
-          <Button variant="outlined" onClick={submitHandler}>
+          <Button
+            variant="contained"
+            style={{
+              backgroundColor: '#1F3137',
+              color: 'white',
+              border: 'solid 1px white',
+            }}
+            onClick={submitHandler}
+          >
             Update
           </Button>
         </FormControl>

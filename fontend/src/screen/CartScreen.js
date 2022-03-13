@@ -17,10 +17,24 @@ import {
   MenuItem,
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/Messagebox';
+import { Helmet } from 'react-helmet-async';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  linkStyle: {
+    textDecoration: 'none',
+    color: 'black',
+  },
+  buttonHover: {
+    '&:hover': {
+      color: 'darkblue',
+    },
+  },
+});
 
 export default function CartScreen() {
+  const classes = useStyles();
   const params = useParams();
   const navigate = useNavigate();
   const productId = params.id;
@@ -48,7 +62,9 @@ export default function CartScreen() {
 
   return (
     <div>
-      <h1>Cart Screen</h1>
+      <Helmet>
+        <title>Cart Screen</title>
+      </Helmet>
       <Box sx={{ flexGrow: 1, marginLeft: 10, marginRight: 10 }}>
         <Grid
           container
@@ -66,17 +82,13 @@ export default function CartScreen() {
                   <Grid container spacing={{ md: 3 }}>
                     <Grid key={item.product} item xs={3} sm={3} md={3}>
                       <Link to={`/product/${item.product}`}>
-                        <span>
-                          <Avatar
-                            sx={{ width: 100, height: 100 }}
-                            src={item.image}
-                            alt={item.name}
-                          />
-                          <Typography gutterBottom variant="h5" component="div">
-                            {item.name}
-                          </Typography>
-                        </span>
+                        <Avatar
+                          sx={{ width: 100, height: 100 }}
+                          src={item.image}
+                          alt={item.name}
+                        />
                       </Link>
+                      <p className={classes.linkStyle}>{item.name}</p>
                     </Grid>
                     <Grid item xs={3} sm={3} md={3}>
                       <>
@@ -103,13 +115,15 @@ export default function CartScreen() {
                       </>
                     </Grid>
                     <Grid item xs={3} sm={3} md={3}>
-                      <Typography gutterBottom variant="h5" component="div">
-                        Price: $ {item.price}
-                      </Typography>
+                      <p>Price: $ {item.price}</p>
                     </Grid>
                     <Grid item xs={2} sm={2} md={2}>
-                      <Button onClick={() => removeItemHandler(item.product)}>
-                        <i className="fas fa-trash"></i>
+                      <Button>
+                        <i
+                          style={{ marginTop: 20, color: '#1F3137' }}
+                          className="fas fa-trash"
+                          onClick={() => removeItemHandler(item.product)}
+                        ></i>
                       </Button>
                     </Grid>
                   </Grid>
@@ -122,10 +136,10 @@ export default function CartScreen() {
             <Card sx={{ maxWidth: 345 }}>
               <CardActionArea>
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
+                  <h3>
                     Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items)
                     : ${cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
-                  </Typography>
+                  </h3>
                 </CardContent>
               </CardActionArea>
 
@@ -133,6 +147,13 @@ export default function CartScreen() {
                 disabled={cartItems.length === 0}
                 size="small"
                 onClick={() => checkoutHandler()}
+                variant="contained"
+                style={{
+                  backgroundColor: '#1F3137',
+                  color: 'white',
+                  border: 'solid 1px white',
+                }}
+                className={classes.buttonHover}
               >
                 Process to Checkout
               </Button>

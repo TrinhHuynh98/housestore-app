@@ -5,8 +5,22 @@ import LoadingBox from '../components/LoadingBox';
 import Messagebox from '../components/Messagebox';
 import { useDispatch, useSelector } from 'react-redux';
 import { summaryOrder } from '../actions/orderActions';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  textAlign: {
+    textAlign: 'center',
+  },
+  numberAlign: {
+    borderRadius: 5,
+    display: 'inline',
+    color: 'white',
+    padding: 10,
+  },
+});
 
 export default function DashboardScreen() {
+  const classes = useStyles();
   const orderSummary = useSelector((state) => state.orderSummary);
   const { loading, error, summary } = orderSummary;
   const dispatch = useDispatch();
@@ -27,38 +41,50 @@ export default function DashboardScreen() {
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
             <Grid item xs={4} sm={4} md={4} style={{ marginTop: 20 }}>
-              <Typography gutterBottom variant="h5" component="div">
-                User
-              </Typography>
-              <Typography gutterBottom variant="h5" component="div">
-                {summary.users[0].numUsers}
-              </Typography>
+              <h2 className={classes.textAlign}>User</h2>
+              <p style={{ textAlign: 'center' }}>
+                <a
+                  className={classes.numberAlign}
+                  style={{ backgroundColor: '#D15B5B' }}
+                >
+                  {summary.users[0].numUsers}
+                </a>
+              </p>
             </Grid>
             <Grid item xs={4} sm={4} md={4} style={{ marginTop: 20 }}>
-              <Typography gutterBottom variant="h5" component="div">
-                Orders
-              </Typography>
-              <Typography gutterBottom variant="h5" component="div">
-                {summary.orders[0] ? summary.orders[0].numOrders : 0}
-              </Typography>
+              <h2 className={classes.textAlign}>Orders</h2>
+              <p style={{ textAlign: 'center' }}>
+                <a
+                  className={classes.numberAlign}
+                  style={{ backgroundColor: '#FF133E' }}
+                >
+                  {' '}
+                  {summary.orders[0] ? summary.orders[0].numOrders : 0}
+                </a>
+              </p>
             </Grid>
             <Grid item xs={4} sm={4} md={4} style={{ marginTop: 20 }}>
-              <Typography gutterBottom variant="h5" component="div">
-                Sales
-              </Typography>
-              <Typography gutterBottom variant="h5" component="div">
-                ${' '}
-                {summary.orders[0]
-                  ? summary.orders[0].totalSales.toFixed(2)
-                  : 0}
-              </Typography>
+              <h2 className={classes.textAlign}>Sales</h2>
+              <p style={{ textAlign: 'center' }}>
+                <a
+                  className={classes.numberAlign}
+                  style={{ backgroundColor: '#00860B' }}
+                >
+                  $
+                  {summary.orders[0]
+                    ? summary.orders[0].totalSales.toFixed(2)
+                    : 0}
+                </a>
+              </p>
             </Grid>
           </Grid>
           <Grid
             container
             spacing={{ xs: 2, md: 3 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
+            style={{ marginTop: 20 }}
           >
+            <h2 style={{ textAlign: 'center' }}>Chart Sale</h2>
             {summary.dailyOrders.length === 0 ? (
               <Messagebox>No Sale</Messagebox>
             ) : (
@@ -81,7 +107,7 @@ export default function DashboardScreen() {
             spacing={{ xs: 2, md: 3 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
-            <h2>Categories</h2>
+            <h2 style={{ textAlign: 'center' }}>Categories</h2>
             {summary.productCategories.length === 0 ? (
               <Messagebox>No Category</Messagebox>
             ) : (

@@ -134,9 +134,17 @@ export default function ProfileScreen() {
             </FormControl>
 
             <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
-              <Button variant="outlined" onClick={submitHandler}>
-                Update
-              </Button>
+               <Button
+                  variant="contained"
+                  style={{
+                    borderRadius: 10,
+                    backgroundColor: '#D15B5B',
+                    marginTop: 10,
+                  }}
+                  onClick={submitHandler}
+                >
+                  Update
+                </Button>
             </FormControl>
           </Grid>
         </>

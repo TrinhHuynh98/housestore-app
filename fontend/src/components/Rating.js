@@ -60,9 +60,13 @@ function Rating(props) {
       {caption ? (
         <span>{caption}</span>
       ) : (
-        <span style={{ color: 'black', marginLeft: 10 }}>
+        <p
+          style={{
+            color: 'black',
+          }}
+        >
           {numViews} reviews
-        </span>
+        </p>
       )}
     </div>
   );

@@ -71,7 +71,16 @@ export default function PaymentScreen() {
               label="Strike"
             />
           </RadioGroup>
-          <Button variant="outlined" onClick={paymentMethodHandler}>
+          <Button
+            size="small"
+            onClick={paymentMethodHandler}
+            variant="contained"
+            style={{
+              backgroundColor: '#1F3137',
+              color: 'white',
+              border: 'solid 1px white',
+            }}
+          >
             Continue
           </Button>
         </FormControl>

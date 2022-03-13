@@ -7,15 +7,17 @@ import {
   Typography,
   Menu,
   Container,
-  Button,
   Tooltip,
   MenuItem,
   Badge,
   InputAdornment,
   TextField,
+  Tabs,
+  Tab,
 } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import SearchIcon from '@mui/icons-material/Search';
-import { Route, Link, Routes, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
 import '../../App.css';
@@ -24,7 +26,6 @@ import { signout } from '../../actions/userActions';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
-// import SearchBox from '../SearchBox';
 
 const pages = [
   { name: 'Home', path: '/' },
@@ -35,7 +36,21 @@ const pages = [
   { name: 'Contact', path: '/contact' },
 ];
 
+const useStyles = makeStyles({
+  linkStyle: {
+    textDecoration: 'none',
+    cursor: 'pointer',
+    color: '#1F3137',
+  },
+  tabHover: {
+    '&:hover': {
+      opacity: 0.5,
+    },
+  },
+});
+
 function Header() {
+  const classes = useStyles();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [anchorElAdmin, setAnchorElAdmin] = React.useState(null);
@@ -73,17 +88,22 @@ function Header() {
   };
   const navigate = useNavigate();
   const [name, setName] = useState('');
+
   const handleSubmit = (e) => {
     e.preventDefault();
     navigate(`/search/${name}`);
   };
+
+  const routes = ['/', '/product', '/gallery', '/contact'];
+
+  const location = useLocation();
 
   return (
     <>
       <AppBar
         className="sub-header-background"
         position="static"
-        style={{ backgroundColor: 'black' }}
+        style={{ backgroundColor: '#1F3137' }}
       >
         <Container maxWidth="xl">
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -117,21 +137,27 @@ function Header() {
               />
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <TextField
-                id="input-with-icon-textfield"
-                style={{ color: 'white', marginTop: 10, marginRight: 10 }}
-                defaultValue="search"
-                onChange={(e) => setName(e.target.value)}
-                InputProps={{
-                  style: { color: 'white' },
-                  startAdornment: (
-                    <InputAdornment position="start" style={{ color: 'white' }}>
-                      <SearchIcon onClick={handleSubmit} />
-                    </InputAdornment>
-                  ),
-                }}
-                variant="standard"
-              />
+              <form onSubmit={handleSubmit} className="row">
+                <TextField
+                  id="input-with-icon-textfield"
+                  style={{ color: 'white', marginTop: 10, marginRight: 10 }}
+                  defaultValue="search"
+                  onChange={(e) => setName(e.target.value)}
+                  InputProps={{
+                    style: { color: 'white' },
+                    startAdornment: (
+                      <InputAdornment
+                        position="start"
+                        style={{ color: 'white' }}
+                      >
+                        <SearchIcon onClick={handleSubmit} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="standard"
+                />
+              </form>
+
               <Toolbar disableGutters>
                 {cartItems.length > 0 ? (
                   <Badge badgeContent={cartItems.length} color="success">
@@ -161,7 +187,9 @@ function Header() {
               sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
               style={{ fontFamily: 'Chilanka' }}
             >
-              NAILBEAUTY
+              <Link className={classes.linkStyle} to="/">
+                NAILBEAUTY
+              </Link>
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -196,14 +224,11 @@ function Header() {
               >
                 {pages.map((page) => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Link
-                      to={page.path}
-                      className="header-text"
-                      variant="body2"
-                      style={{ color: 'black', textDecoration: 'none' }}
-                    >
-                      <Typography textAlign="center">{page.name}</Typography>
-                    </Link>
+                    <div>
+                      <Link to={page.path} className={classes.linkStyle}>
+                        {page.name}
+                      </Link>
+                    </div>
                   </MenuItem>
                 ))}
               </Menu>
@@ -217,7 +242,9 @@ function Header() {
               sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
               style={{ fontFamily: 'Chilanka' }}
             >
-              NAILBEAUTY
+              <Link className={classes.linkStyle} to="/">
+                NAILBEAUTY
+              </Link>
             </Typography>
             <Box
               sx={{
@@ -229,37 +256,70 @@ function Header() {
                 justifyContent: 'center',
               }}
             >
-              {pages.map((page) => (
-                <Button
-                  className="header-text"
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'black' }}
-                >
-                  <Link
-                    to={page.path}
-                    className="header-text"
-                    variant="body2"
-                    style={{ color: 'black', textDecoration: 'none' }}
-                  >
-                    {page.name}
-                  </Link>
-                </Button>
-              ))}
+              <Tabs
+                value={location.pathname}
+                TabIndicatorProps={{
+                  style: {
+                    backgroundColor: '#D15B5B',
+                  },
+                }}
+              >
+                <Tab
+                  value={routes[0]}
+                  label="Home"
+                  component={Link}
+                  to={routes[0]}
+                  className={classes.tabHover}
+                  style={{ color: '#1F3137' }}
+                />
+                <Tab
+                  value={routes[1]}
+                  label="Product"
+                  component={Link}
+                  to={routes[1]}
+                  className={classes.tabHover}
+                  style={{ color: '#1F3137' }}
+                />
+                <Tab
+                  value={routes[2]}
+                  label="Gallery"
+                  component={Link}
+                  to={routes[2]}
+                  className={classes.tabHover}
+                  style={{ color: '#1F3137' }}
+                />
+                <Tab
+                  value={routes[3]}
+                  label="Contact"
+                  component={Link}
+                  to={routes[3]}
+                  className={classes.tabHover}
+                  style={{ color: '#1F3137' }}
+                />
+              </Tabs>
             </Box>
 
             <Box sx={{ display: 'flex' }}>
               <Tooltip title="User Setting">
                 {userInfo ? (
                   <Typography
-                    style={{ color: 'black' }}
+                    style={{ color: 'black', cursor: 'pointer' }}
                     onClick={handleOpenUserMenu}
                   >
                     {userInfo.name}
                   </Typography>
                 ) : (
-                  <Link to="/signin" style={{ color: 'black' }}>
-                    <Typography style={{ color: 'blue' }} textAlign="center">
+                  <Link to="/signin" className={classes.linkStyle}>
+                    <Typography
+                      textAlign="center"
+                      style={{
+                        display: 'inline',
+                        backgroundColor: '#1F3137',
+                        borderRadius: 10,
+                        padding: 10,
+                        color: 'white',
+                      }}
+                    >
                       Sign In
                     </Typography>
                   </Link>
@@ -282,7 +342,7 @@ function Header() {
                 onClose={handleCloseUserMenu}
               >
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Link to="/profile">
+                  <Link className={classes.linkStyle} to="/profile">
                     <Typography textAlign="center">User Profile</Typography>
                   </Link>
                 </MenuItem>
@@ -292,12 +352,12 @@ function Header() {
                     signoutHandler();
                   }}
                 >
-                  <Link to="#">
+                  <Link to="#" className={classes.linkStyle}>
                     <Typography textAlign="center">Sign out</Typography>
                   </Link>
                 </MenuItem>
                 <MenuItem>
-                  <Link to="/orderhistory">
+                  <Link to="/orderhistory" className={classes.linkStyle}>
                     <Typography textAlign="center">Order History</Typography>
                   </Link>
                 </MenuItem>
@@ -307,7 +367,11 @@ function Header() {
                 <>
                   <Tooltip title="User Setting">
                     <Typography
-                      style={{ color: 'black', marginLeft: 15 }}
+                      style={{
+                        color: 'black',
+                        marginLeft: 15,
+                        cursor: 'pointer',
+                      }}
                       onClick={handleOpenAdminMenu}
                     >
                       Admin
@@ -330,27 +394,27 @@ function Header() {
                     onClose={handleCloseAdminMenu}
                   >
                     <MenuItem onClick={handleCloseAdminMenu}>
-                      <Link to="/dashboard">
+                      <Link to="/dashboard" className={classes.linkStyle}>
                         <Typography textAlign="center">Dashboard</Typography>
                       </Link>
                     </MenuItem>
                     <MenuItem>
-                      <Link to="/productlist">
+                      <Link to="/productlist" className={classes.linkStyle}>
                         <Typography textAlign="center">Products</Typography>
                       </Link>
                     </MenuItem>
                     <MenuItem>
-                      <Link to="/orderlist">
+                      <Link to="/orderlist" className={classes.linkStyle}>
                         <Typography textAlign="center">Orders</Typography>
                       </Link>
                     </MenuItem>
                     <MenuItem>
-                      <Link to="/userlist">
+                      <Link to="/userlist" className={classes.linkStyle}>
                         <Typography textAlign="center">Users</Typography>
                       </Link>
                     </MenuItem>
                     <MenuItem>
-                      <Link to="/support">
+                      <Link to="/support" className={classes.linkStyle}>
                         <Typography textAlign="center">Support</Typography>
                       </Link>
                     </MenuItem>

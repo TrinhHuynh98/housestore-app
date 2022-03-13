@@ -25,6 +25,7 @@ export default function OrderHistoryScreen() {
         <Messagebox>{error}</Messagebox>
       ) : (
         <>
+          <h2 style={{ textAlign: 'center' }}>Order History</h2>
           <table className="table">
             <thead>
               <tr>
@@ -42,14 +43,62 @@ export default function OrderHistoryScreen() {
                   <td>{order._id}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>
                   <td>{order.totalPrice.toFixed(2)}</td>
-                  <td>{order.isPaid ? order.paidAt.substring(0, 10) : 'No'}</td>
                   <td>
-                    {order.isDelivered
-                      ? order.deliveredAt.substring(0, 10)
-                      : 'No'}
+                    {order.isPaid ? (
+                      <p
+                        style={{
+                          backgroundColor: '#00860B',
+                          borderRadius: 10,
+                          textAlign: 'center',
+                        }}
+                      >
+                        order.paidAt.substring(0, 10)
+                      </p>
+                    ) : (
+                      <p
+                        style={{
+                          backgroundColor: '#FF133E',
+                          borderRadius: 10,
+                          textAlign: 'center',
+                        }}
+                      >
+                        No
+                      </p>
+                    )}
                   </td>
                   <td>
-                    <Button onClick={() => navigate(`/order/${order._id}`)}>
+                    {order.isDelivered ? (
+                      <p
+                        style={{
+                          backgroundColor: '#00860B',
+                          borderRadius: 10,
+                          textAlign: 'center',
+                        }}
+                      >
+                        order.deliveredAt.substring(0, 10)
+                      </p>
+                    ) : (
+                      <p
+                        style={{
+                          backgroundColor: '#FF133E',
+                          borderRadius: 10,
+                          textAlign: 'center',
+                        }}
+                      >
+                        No
+                      </p>
+                    )}
+                  </td>
+                  <td>
+                    <Button
+                      variant="contained"
+                      style={{
+                        borderRadius: 10,
+                        backgroundColor: '#D15B5B',
+                        marginop: 10,
+                      }}
+                      onClick={() => navigate(`/order/${order._id}`)}
+                    >
                       Details
                     </Button>
                   </td>

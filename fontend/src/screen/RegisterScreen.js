@@ -56,17 +56,14 @@ export default function RegisterScreen() {
         justifyContent="center"
         style={{ minHeight: '30vh' }}
       >
-        <Typography component="h1" variant="h5" style={{ marginTop: 20 }}>
-          Register
-        </Typography>
+        <h2>Register</h2>
         {loading && <LoadingBox></LoadingBox>}
         {error && <Messagebox>{error}</Messagebox>}
         <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
           <TextField
             required
-            id="standard-required"
+            id="outlined-basic"
             label="Name"
-            variant="standard"
             onChange={(e) => {
               setName(e.target.value);
             }}
@@ -75,9 +72,8 @@ export default function RegisterScreen() {
         <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
           <TextField
             required
-            id="standard-required"
+            id="outlined-basic"
             label="Email"
-            variant="standard"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -85,11 +81,10 @@ export default function RegisterScreen() {
         </FormControl>
         <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
           <TextField
-            id="standard-password-input"
+            id="outlined-basic"
             label="Password"
             type="password"
             autoComplete="current-password"
-            variant="standard"
             onChange={(e) => {
               setPassword(e.target.value);
             }}
@@ -97,22 +92,34 @@ export default function RegisterScreen() {
         </FormControl>
         <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
           <TextField
-            id="standard-password-input"
             label="Confirm Password"
             type="password"
             autoComplete="current-password"
-            variant="standard"
+            id="outlined-basic"
             onChange={(e) => {
               setConfirmPassword(e.target.value);
             }}
           />
         </FormControl>
         <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
-          <Button variant="outlined" onClick={submitHandler}>
+          <Button
+            variant="contained"
+            style={{
+              backgroundColor: '#1F3137',
+              color: 'white',
+              borderRadius: 10,
+            }}
+            onClick={submitHandler}
+          >
             Register
           </Button>
         </FormControl>
-        <Link to={`/signin?redirect=${redirect}`}>Already have an account</Link>
+        <Link
+          to={`/signin?redirect=${redirect}`}
+          style={{ textDecoration: 'none' }}
+        >
+          Already have an account
+        </Link>
       </Grid>
     </>
   );

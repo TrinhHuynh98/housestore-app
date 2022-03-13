@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { deletedOrder, listOrder } from '../actions/orderActions';
 import { ORDER_DELETE_RESET } from '../constants/orderConstants';
 
+
 export default function OrderListScreen() {
   const navigate = useNavigate();
   const orderList = useSelector((state) => state.orderList);
@@ -73,11 +74,27 @@ export default function OrderListScreen() {
                       : 'No'}
                   </td>
                   <td>
-                    <Button onClick={() => navigate(`/order/${order._id}`)}>
+                    <Button 
+                      variant="contained"
+                      style={{
+                        borderRadius: 10,
+                        backgroundColor: '#D15B5B',
+                        marginTop: 10,
+                      }} 
+                      onClick={() => navigate(`/order/${order._id}`)}>
                       Details
                     </Button>
-
-                    <Button onClick={() => deleteHandler(order)}>Delete</Button>
+          
+                    <Button 
+                      variant="contained"
+                      style={{
+                        borderRadius: 10,
+                        backgroundColor: '#D15B5B',
+                        marginTop: 10,
+                      }} 
+                      onClick={() => deleteHandler(order)}
+                      >
+                      Delete</Button>
                   </td>
                 </tr>
               ))}

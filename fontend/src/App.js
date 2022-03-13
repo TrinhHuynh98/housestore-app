@@ -25,12 +25,14 @@ import DashboardScreen from './screen/DashboardScreen';
 import SupportScreen from './screen/SupportScreen';
 import ChartBox from './components/ChartBox';
 import { useSelector } from 'react-redux';
-// import MapScreen from './screen/MapScreen';
+import ProductPage from './screen/ProductPage';
+import GalleryScreen from './screen/GalleryScreen';
+import Contact from './screen/Contact';
 
 function App() {
-  // const dispatch = useDispatch();
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
+
   return (
     <>
       <ToastContainer position="bottom-center" limit={1} />
@@ -42,10 +44,14 @@ function App() {
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/product/:id" element={<ProductScreen />} />
           <Route path="/cart/:id" element={<CartScreen />} />
+          <Route path="/cart" element={<CartScreen />} />
           <Route path="/shipping" element={<ShippingAddressScreen />} />
           <Route path="/payment" element={<PaymentScreen />} />
           <Route path="/placeorder" element={<PlaceOrderScreen />} />
           <Route path="/order/:id" element={<OrderScreen />} />
+          <Route path="/product" element={<ProductPage />} />
+          <Route path="/gallery" element={<GalleryScreen />} />
+          <Route path="/contact" element={<Contact />} />
           <Route
             path="/profile"
             element={
@@ -114,15 +120,8 @@ function App() {
             element={<SearchScreen />}
             exact
           ></Route>
-          {/* <Route
-            path="/map"
-            element={
-              <PrivateRouter>
-                <MapScreen />
-              </PrivateRouter>
-            }
-          /> */}
         </Routes>
+
         <div>
           {userInfo && !userInfo.isAdmin && <ChartBox userInfo={userInfo} />}
         </div>

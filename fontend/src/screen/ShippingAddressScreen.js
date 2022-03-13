@@ -80,20 +80,20 @@ export default function ShippingAddressScreen() {
     navigate('/payment');
   };
 
-  const chooseOnMap = () => {
-    dispatch(
-      saveShippingAdresss({
-        fullName,
-        address,
-        city,
-        postalCode,
-        country,
-        lat,
-        lng,
-      })
-    );
-    navigate('/map');
-  };
+  // const chooseOnMap = () => {
+  //   dispatch(
+  //     saveShippingAdresss({
+  //       fullName,
+  //       address,
+  //       city,
+  //       postalCode,
+  //       country,
+  //       lat,
+  //       lng,
+  //     })
+  //   );
+  //   navigate('/map');
+  // };
   return (
     <div>
       <Helmet>Shipping Adresss</Helmet>
@@ -169,13 +169,22 @@ export default function ShippingAddressScreen() {
             }}
           />
         </FormControl>
-        <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
+        {/* <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
           <Button variant="outlined" onClick={chooseOnMap}>
             Choose On Map
           </Button>
-        </FormControl>
+        </FormControl> */}
         <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
-          <Button variant="outlined" onClick={shippingHandler}>
+          <Button
+            size="small"
+            onClick={shippingHandler}
+            variant="contained"
+            style={{
+              backgroundColor: '#1F3137',
+              color: 'white',
+              border: 'solid 1px white',
+            }}
+          >
             Continue
           </Button>
         </FormControl>

@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import {
-  FormControl,
-  TextField,
-  Grid,
-  Typography,
-  Button,
-} from '@mui/material';
+import { FormControl, TextField, Grid, Button } from '@mui/material';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signin } from '../actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import Messagebox from '../components/Messagebox';
 import { Helmet } from 'react-helmet-async';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  textField: {
+    borderRadius: '50%',
+    border: 'solid 1px white',
+  },
+});
 
 export default function SignInScreen() {
+  const classes = useStyles();
   const navigate = useNavigate();
   const { search } = useLocation();
   const redirectUrl = new URLSearchParams(search).get('redirect');
@@ -51,41 +54,56 @@ export default function SignInScreen() {
         justifyContent="center"
         style={{ minHeight: '30vh' }}
       >
-        <Typography component="h1" variant="h5" style={{ marginTop: 20 }}>
-          Sign in
-        </Typography>
+        <h2 style={{ textAlign: 'center' }}>Sign in</h2>
+
         {loading && <LoadingBox></LoadingBox>}
         {error && <Messagebox>{error}</Messagebox>}
+
         <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
           <TextField
             required
-            id="standard-required"
+            id="outlined-basic"
             label="Email"
             defaultValue=""
-            variant="standard"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            className={classes.textField}
+            fullWidth
           />
         </FormControl>
         <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
           <TextField
-            id="standard-password-input"
+            id="outlined-basic"
             label="Password"
             type="password"
             autoComplete="current-password"
-            variant="standard"
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            className={classes.textField}
+            fullWidth
           />
         </FormControl>
         <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
-          <Button variant="outlined" onClick={submitHandler}>
+          <Button
+            variant="contained"
+            style={{
+              backgroundColor: '#1F3137',
+              color: 'white',
+              borderRadius: 10,
+            }}
+            onClick={submitHandler}
+          >
             Sign In
           </Button>
         </FormControl>
-        <Link to={`/register?redirect=${redirect}`}>Create new account</Link>
+        <Link
+          to={`/register?redirect=${redirect}`}
+          style={{ textDecoration: 'none' }}
+        >
+          Create new account
+        </Link>
       </Grid>
     </>
   );

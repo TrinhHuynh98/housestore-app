@@ -9,12 +9,16 @@ import {
 import Footer from '../components/Layout/Footer';
 import LoadingBox from '../components/LoadingBox';
 import Messagebox from '../components/Messagebox';
-import { Button } from '@mui/material';
+import { Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import {
   PRODUCT_CREATE_RESET,
   PRODUCT_DELETE_RESET,
 } from '../constants/productConstants';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function ProductListScreen(props) {
   const navigate = useNavigate();
@@ -72,12 +76,20 @@ export default function ProductListScreen(props) {
         <Messagebox>{error}</Messagebox>
       ) : (
         <>
-          <div
-            style={{ display: 'flex-end' }}
-            onClick={() => createProductHandler()}
-          >
-            <Button> Create Product</Button>
-          </div>
+          <h2 style={{ textAlign: 'center' }}>Product List</h2>
+
+          <Tooltip title="Create product" arrow>
+            <AddBoxIcon
+              style={{
+                curson: 'pointer',
+                position: 'absolute',
+                right: 50,
+                marginBottom: 50,
+              }}
+              onClick={() => createProductHandler()}
+            />
+          </Tooltip>
+
           <table className="table">
             <thead>
               <tr>
@@ -101,11 +113,19 @@ export default function ProductListScreen(props) {
                     <Button
                       onClick={() => navigate(`/product/${product._id}/edit`)}
                     >
-                      Edit
+                      <EditIcon
+                        style={{
+                          backgroundColor: '#1F3137',
+                          color: 'white',
+                        }}
+                      />
                     </Button>
 
                     <Button onClick={() => deleteHandler(product)}>
-                      Delete
+                      <DeleteIcon style={{
+                          backgroundColor: '#1F3137',
+                          color: 'white',
+                        }}/>
                     </Button>
                   </td>
                 </tr>

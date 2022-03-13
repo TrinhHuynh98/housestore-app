@@ -7,6 +7,8 @@ import { listProducts } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/Messagebox';
 import { Helmet } from 'react-helmet-async';
+import SlideShow from '../components/SlideShow';
+import Category from '../components/Category';
 
 export default function HomeScreen() {
   const dispatch = useDispatch();
@@ -19,30 +21,35 @@ export default function HomeScreen() {
   }, [dispatch]);
 
   return (
-    <div>
-      <Helmet>
-        <title>Amazone</title>
-      </Helmet>
+    <>
+      <SlideShow />
 
-      {loading ? (
-        <LoadingBox></LoadingBox>
-      ) : error ? (
-        <MessageBox>{error}</MessageBox>
-      ) : (
-        <Box sx={{ flexGrow: 1, marginLeft: 10, marginRight: 10 }}>
-          <Grid
-            container
-            spacing={{ xs: 2, md: 3 }}
-            columns={{ xs: 4, sm: 8, md: 12 }}
-          >
-            {products.map((item) => (
-              <Products key={item._id} product={item}></Products>
-            ))}
-          </Grid>
-        </Box>
-      )}
+      <Category />
+      <div>
+        <Helmet>
+          <title>Amazone</title>
+        </Helmet>
 
-      <Footer />
-    </div>
+        {loading ? (
+          <LoadingBox></LoadingBox>
+        ) : error ? (
+          <MessageBox>{error}</MessageBox>
+        ) : (
+          <Box sx={{ flexGrow: 1, marginLeft: 10, marginRight: 10 }}>
+            <Grid
+              container
+              spacing={{ xs: 2, md: 3 }}
+              columns={{ xs: 4, sm: 8, md: 12 }}
+            >
+              {products.map((item) => (
+                <Products key={item._id} product={item}></Products>
+              ))}
+            </Grid>
+          </Box>
+        )}
+
+        <Footer />
+      </div>
+    </>
   );
 }
