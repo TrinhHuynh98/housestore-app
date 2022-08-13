@@ -77,58 +77,61 @@ export default function CartScreen() {
                 Cart is empty. <Link to="/">Go Shopping</Link>
               </MessageBox>
             ) : (
-              <ul>
-                {cartItems.map((item) => (
-                  <Grid container spacing={{ md: 3 }}>
-                    <Grid key={item.product} item xs={3} sm={3} md={3}>
-                      <Link to={`/product/${item.product}`}>
-                        <Avatar
-                          sx={{ width: 100, height: 100 }}
-                          src={item.image}
-                          alt={item.name}
-                        />
-                      </Link>
-                      <p className={classes.linkStyle}>{item.name}</p>
+              <>
+                <h3>Cart Checkout </h3>
+                <ul>
+                  {cartItems.map((item) => (
+                    <Grid container spacing={{ md: 3 }}>
+                      <Grid key={item.product} item xs={3} sm={3} md={3}>
+                        <Link to={`/product/${item.product}`}>
+                          <Avatar
+                            sx={{ width: 100, height: 100 }}
+                            src={item.image}
+                            alt={item.name}
+                          />
+                        </Link>
+                        <p className={classes.linkStyle}>{item.name}</p>
+                      </Grid>
+                      <Grid item xs={3} sm={3} md={3}>
+                        <>
+                          <InputLabel id="demo-simple-select-label">
+                            Qty
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={item.qty}
+                            label="Qty"
+                            onChange={(e) =>
+                              dispatch(
+                                addToCart(item.product, Number(e.target.value))
+                              )
+                            }
+                          >
+                            {[...Array(item.countInStock).keys()].map((x) => (
+                              <MenuItem key={x + 1} value={x + 1}>
+                                {x + 1}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </>
+                      </Grid>
+                      <Grid item xs={3} sm={3} md={3}>
+                        <p>Price: $ {item.price}</p>
+                      </Grid>
+                      <Grid item xs={2} sm={2} md={2}>
+                        <Button>
+                          <i
+                            style={{ marginTop: 20, color: '#1F3137' }}
+                            className="fas fa-trash"
+                            onClick={() => removeItemHandler(item.product)}
+                          ></i>
+                        </Button>
+                      </Grid>
                     </Grid>
-                    <Grid item xs={3} sm={3} md={3}>
-                      <>
-                        <InputLabel id="demo-simple-select-label">
-                          Qty
-                        </InputLabel>
-                        <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={item.qty}
-                          label="Qty"
-                          onChange={(e) =>
-                            dispatch(
-                              addToCart(item.product, Number(e.target.value))
-                            )
-                          }
-                        >
-                          {[...Array(item.countInStock).keys()].map((x) => (
-                            <MenuItem key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </>
-                    </Grid>
-                    <Grid item xs={3} sm={3} md={3}>
-                      <p>Price: $ {item.price}</p>
-                    </Grid>
-                    <Grid item xs={2} sm={2} md={2}>
-                      <Button>
-                        <i
-                          style={{ marginTop: 20, color: '#1F3137' }}
-                          className="fas fa-trash"
-                          onClick={() => removeItemHandler(item.product)}
-                        ></i>
-                      </Button>
-                    </Grid>
-                  </Grid>
-                ))}
-              </ul>
+                  ))}
+                </ul>
+              </>
             )}
           </Grid>
 
@@ -138,7 +141,17 @@ export default function CartScreen() {
                 <CardContent>
                   <h3>
                     Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items)
-                    : ${cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+                    :{' '}
+                    <span
+                      style={{
+                        backgroundColor: 'red',
+                        padding: 15,
+                        borderRadius: 30,
+                        justifyContent: 'center',
+                      }}
+                    >
+                      ${cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+                    </span>
                   </h3>
                 </CardContent>
               </CardActionArea>
@@ -150,8 +163,11 @@ export default function CartScreen() {
                 variant="contained"
                 style={{
                   backgroundColor: '#1F3137',
+                  borderRadius: 30,
                   color: 'white',
-                  border: 'solid 1px white',
+                  margin: '0 auto',
+                  display: 'flex',
+                  marginBottom: 10,
                 }}
                 className={classes.buttonHover}
               >

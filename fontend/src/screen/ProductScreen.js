@@ -82,11 +82,12 @@ export default function ProductScreen() {
           <Box sx={{ flexGrow: 1, marginLeft: 10, marginRight: 10 }}>
             <Grid
               container
-              spacing={{ xs: 2, md: 3 }}
+              spacing={{ xs: 1 }}
               columns={{ xs: 4, sm: 8, md: 12 }}
             >
               <Grid item xs={4} sm={4} md={4} style={{ marginTop: 20 }}>
                 <img
+                  style={{ height: 350 }}
                   className="img-large"
                   src={product.image}
                   alt={product.name}
@@ -101,21 +102,24 @@ export default function ProductScreen() {
                 <ul>
                   {product.reviews.map((review) => (
                     <li key={review._id}>
-                      <strong>{review.name}</strong>
+                      <strong>{review.name}</strong>{' '}
+                      <span>({review.createdAt.substring(0, 10)})</span>
                       <Rating rating={review.rating} caption=""></Rating>
-                      <p>{review.createdAt.substring(0, 10)}</p>
-                      <p>{review.comment}</p>
+                      <p> - {review.comment}</p>
                     </li>
                   ))}
                 </ul>
                 {userInfo ? (
                   <>
+                    <Typography gutterBottom variant="h5" component="div">
+                      Drop your comment here!
+                    </Typography>
                     <FormControl
                       sx={{ m: 1, minWidth: 150 }}
                       style={{ marginTop: 20, marginBottom: 20 }}
                     >
                       <InputLabel id="demo-simple-select-autowidth-label">
-                        Rating
+                        Select your rating
                       </InputLabel>
                       <Select
                         labelId="demo-simple-select-label"
@@ -149,9 +153,19 @@ export default function ProductScreen() {
                           setComment(e.target.value);
                         }}
                       />
-                    </FormControl>
-                    <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
-                      <Button size="small" onClick={submitHandler}>
+                      <Button
+                        size="medium"
+                        onClick={submitHandler}
+                        style={{
+                          backgroundColor: '#1F3137',
+                          borderRadius: 30,
+                          color: 'white',
+                          margin: '0 auto',
+                          display: 'flex',
+                          marginBottom: 10,
+                          marginTop: 20,
+                        }}
+                      >
                         Submit
                       </Button>
                     </FormControl>
@@ -171,9 +185,7 @@ export default function ProductScreen() {
               </Grid>
               <Grid item xs={4} sm={4} md={4} style={{ marginTop: 20 }}>
                 <h1>{product.name}</h1>
-
                 <Rating rating={product.rating} numViews={product.numReviews} />
-
                 <p>Price: ${product.price}</p>
               </Grid>
 
@@ -181,10 +193,10 @@ export default function ProductScreen() {
                 <Card sx={{ maxWidth: 345 }}>
                   <CardActionArea>
                     <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
+                      <Typography gutterBottom variant="p" component="div">
                         Price: ${product.price}
                       </Typography>
-                      <Typography gutterBottom variant="h5" component="div">
+                      <Typography gutterBottom variant="p" component="div">
                         Status:{' '}
                         {product.countInStock > 0 ? (
                           <Chip label="In Stock" color="success" />
@@ -218,7 +230,19 @@ export default function ProductScreen() {
                   </CardActionArea>
 
                   {product.countInStock > 0 && (
-                    <Button size="small" onClick={addToCartHander}>
+                    <Button
+                      size="medium"
+                      onClick={addToCartHander}
+                      style={{
+                        backgroundColor: '#1F3137',
+                        borderRadius: 30,
+                        pading: 20,
+                        color: 'white',
+                        margin: '0 auto',
+                        display: 'flex',
+                        marginBottom: 10,
+                      }}
+                    >
                       Add to card
                     </Button>
                   )}

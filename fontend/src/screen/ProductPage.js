@@ -20,7 +20,7 @@ export default function ProductPage() {
   return (
     <div>
       <Helmet>
-        <title>Product</title>
+        <title>Product Screen</title>
       </Helmet>
       {loading ? (
         <LoadingBox></LoadingBox>

@@ -84,7 +84,7 @@ export default function ProductListScreen(props) {
                 curson: 'pointer',
                 position: 'absolute',
                 right: 50,
-                marginBottom: 50,
+                marginBottom: 30,
               }}
               onClick={() => createProductHandler()}
             />
@@ -122,10 +122,12 @@ export default function ProductListScreen(props) {
                     </Button>
 
                     <Button onClick={() => deleteHandler(product)}>
-                      <DeleteIcon style={{
+                      <DeleteIcon
+                        style={{
                           backgroundColor: '#1F3137',
                           color: 'white',
-                        }}/>
+                        }}
+                      />
                     </Button>
                   </td>
                 </tr>

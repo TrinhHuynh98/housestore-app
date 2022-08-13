@@ -25,11 +25,6 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const useStyles = makeStyles({
-  imageHover: {
-    '&:hover': {
-      transform: 'scale(1.3)',
-    },
-  },
   productDetail: {
     textAlign: 'center',
     fontFamily: 'Monaco',
@@ -45,43 +40,37 @@ function Products(props) {
   const { product } = props;
   const classes = useStyles();
   const dispatch = useDispatch();
+  const Style = {
+    height: 100,
+  };
 
   console.log('product', product._id);
 
   return (
     <>
-      <Grid item xs={4} sm={4} md={4} style={{ marginTop: 20 }}>
+      <Grid item xs={4} sm={4} md={4} style={{ marginTop: 10 }}>
         <Card key={product._id} sx={{ maxWidth: 345 }}>
-          <CardActionArea>
-            <Link to={`/product/${product._id}`}>
-              <CardMedia
-                component="img"
-                image={product.image}
-                alt={product.name}
-                className={classes.imageHover}
-              />
-            </Link>
-            <CardContent>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                className={classes.productDetail}
-              >
-                {product.name}
-              </Typography>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                className={classes.productDetail}
-              >
-                {product.description}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Price: ${product.price}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
+          <Link to={`/product/${product._id}`}>
+            <CardMedia
+              component="img"
+              height="200"
+              image={product.image}
+              alt={product.name}
+            />
+          </Link>
+          <CardContent>
+            <Typography gutterBottom className={classes.productDetail}>
+              <h2>
+                <b>{product.name}</b>
+              </h2>
+            </Typography>
+            <Typography className={classes.productDetail}>
+              {product.description}
+            </Typography>
+            <Typography className={classes.productDetail}>
+              Price: <b>${product.price}</b>
+            </Typography>
+          </CardContent>
 
           <CardActions>
             <div style={{ display: 'flex' }}>
@@ -93,8 +82,10 @@ function Products(props) {
                   style={{
                     marginLeft: 20,
                     color: 'black',
-                    border: 'solid 1px white',
+                    border: 'solid 1px black',
                     height: 50,
+                    borderRadius: 30,
+                    padding: 20,
                   }}
                 >
                   Out of stock
@@ -107,8 +98,9 @@ function Products(props) {
                     marginLeft: 20,
                     backgroundColor: '#D15B5B',
                     color: 'white',
-                    border: 'solid 1px white',
                     height: 50,
+                    borderRadius: 30,
+                    padding: 20,
                   }}
                   size="small"
                   onClick={(e) => dispatch(addToCart(product._id, 1))}

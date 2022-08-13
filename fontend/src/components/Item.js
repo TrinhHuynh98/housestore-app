@@ -30,9 +30,11 @@ function Item(props) {
               style={{
                 backgroundColor: '#D15B5B',
                 color: 'white',
-                border: 'solid 1px white',
+                border: 'solid 1px',
                 marginTop: 15,
                 marginBottom: 15,
+                borderRadius: 30,
+                padding: 10,
               }}
             >
               <Link

@@ -14,8 +14,9 @@ import {
   TextField,
   Tabs,
   Tab,
+  Button,
 } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { makeStyles, withStyles, createStyles } from '@mui/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
@@ -25,7 +26,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signout } from '../../actions/userActions';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const pages = [
   { name: 'Home', path: '/' },
@@ -36,7 +37,7 @@ const pages = [
   { name: 'Contact', path: '/contact' },
 ];
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() => ({
   linkStyle: {
     textDecoration: 'none',
     cursor: 'pointer',
@@ -47,8 +48,13 @@ const useStyles = makeStyles({
       opacity: 0.5,
     },
   },
-});
+}));
 
+const styles = (theme) => ({
+  margin: {
+    margin: theme.spacing(2),
+  },
+});
 function Header() {
   const classes = useStyles();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -98,6 +104,28 @@ function Header() {
 
   const location = useLocation();
 
+  const CssTextField = withStyles({
+    root: {
+      '& label.Mui-focused': {
+        color: 'white',
+      },
+      '& .MuiInput-underline:after': {
+        borderBottomColor: 'white',
+      },
+      '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+          borderColor: 'white',
+        },
+        '&:hover fieldset': {
+          borderColor: 'white',
+        },
+        '&.Mui-focused fieldset': {
+          borderColor: 'white',
+        },
+      },
+    },
+  })(TextField);
+
   return (
     <>
       <AppBar
@@ -108,41 +136,36 @@ function Header() {
         <Container maxWidth="xl">
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <FacebookIcon
-                style={{
-                  color: 'white',
-                  marginTop: 20,
-                  marginRight: 10,
-                  height: 20,
-                  width: 20,
-                }}
+              <Button
+                variant="link"
+                color="default"
+                className={classes.signInButton}
+                startIcon={<FacebookIcon />}
+                href="https://www.facebook.com/tr989898/"
               />
-              <TwitterIcon
-                style={{
-                  color: 'white',
-                  marginTop: 20,
-                  marginRight: 10,
-                  height: 20,
-                  width: 20,
-                }}
+              <Button
+                variant="link"
+                color="default"
+                className={classes.signInButton}
+                startIcon={<InstagramIcon />}
+                href="https://www.instagram.com/joslies98/"
               />
-              <InstagramIcon
-                style={{
-                  color: 'white',
-                  marginTop: 20,
-                  marginRight: 10,
-                  height: 20,
-                  width: 20,
-                }}
+              <Button
+                variant="link"
+                color="default"
+                className={classes.signInButton}
+                startIcon={<LinkedInIcon />}
+                href="https://www.linkedin.com/in/trinhhuynh98/"
               />
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <form onSubmit={handleSubmit} className="row">
-                <TextField
-                  id="input-with-icon-textfield"
-                  style={{ color: 'white', marginTop: 10, marginRight: 10 }}
-                  defaultValue="search"
+                <CssTextField
+                  size="small"
+                  id="custom-css-standard-input"
                   onChange={(e) => setName(e.target.value)}
+                  className={styles.margin}
+                  style={{ marginTop: 10, marginRight: 20 }}
                   InputProps={{
                     style: { color: 'white' },
                     startAdornment: (
@@ -154,7 +177,6 @@ function Header() {
                       </InputAdornment>
                     ),
                   }}
-                  variant="standard"
                 />
               </form>
 
@@ -188,7 +210,7 @@ function Header() {
               style={{ fontFamily: 'Chilanka' }}
             >
               <Link className={classes.linkStyle} to="/">
-                NAILBEAUTY
+                House Store
               </Link>
             </Typography>
 
@@ -243,7 +265,7 @@ function Header() {
               style={{ fontFamily: 'Chilanka' }}
             >
               <Link className={classes.linkStyle} to="/">
-                NAILBEAUTY
+                House Store
               </Link>
             </Typography>
             <Box
@@ -303,7 +325,13 @@ function Header() {
               <Tooltip title="User Setting">
                 {userInfo ? (
                   <Typography
-                    style={{ color: 'black', cursor: 'pointer' }}
+                    style={{
+                      borderRadius: 20,
+                      padding: 10,
+                      color: 'black',
+                      cursor: 'pointer',
+                      backgroundColor: 'pink',
+                    }}
                     onClick={handleOpenUserMenu}
                   >
                     {userInfo.name}
@@ -315,8 +343,8 @@ function Header() {
                       style={{
                         display: 'inline',
                         backgroundColor: '#1F3137',
-                        borderRadius: 10,
-                        padding: 10,
+                        borderRadius: 30,
+                        padding: 15,
                         color: 'white',
                       }}
                     >

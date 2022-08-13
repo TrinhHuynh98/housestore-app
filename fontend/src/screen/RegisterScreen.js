@@ -13,8 +13,18 @@ import LoadingBox from '../components/LoadingBox';
 import Messagebox from '../components/Messagebox';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-toastify';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  root: {
+    [`& fieldset`]: {
+      borderRadius: 30,
+    },
+  },
+});
 
 export default function RegisterScreen() {
+  const classes = useStyles();
   const navigate = useNavigate();
   const { search } = useLocation();
   const redirectUrl = new URLSearchParams(search).get('redirect');
@@ -59,7 +69,7 @@ export default function RegisterScreen() {
         <h2>Register</h2>
         {loading && <LoadingBox></LoadingBox>}
         {error && <Messagebox>{error}</Messagebox>}
-        <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
+        <FormControl style={{ marginTop: 10, marginBottom: 10 }}>
           <TextField
             required
             id="outlined-basic"
@@ -67,9 +77,12 @@ export default function RegisterScreen() {
             onChange={(e) => {
               setName(e.target.value);
             }}
+            classes={{
+              root: classes.root,
+            }}
           />
         </FormControl>
-        <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
+        <FormControl style={{ marginTop: 10, marginBottom: 10 }}>
           <TextField
             required
             id="outlined-basic"
@@ -77,9 +90,12 @@ export default function RegisterScreen() {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            classes={{
+              root: classes.root,
+            }}
           />
         </FormControl>
-        <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
+        <FormControl style={{ marginTop: 10, marginBottom: 10 }}>
           <TextField
             id="outlined-basic"
             label="Password"
@@ -88,9 +104,12 @@ export default function RegisterScreen() {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            classes={{
+              root: classes.root,
+            }}
           />
         </FormControl>
-        <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
+        <FormControl style={{ marginTop: 10, marginBottom: 10 }}>
           <TextField
             label="Confirm Password"
             type="password"
@@ -99,15 +118,19 @@ export default function RegisterScreen() {
             onChange={(e) => {
               setConfirmPassword(e.target.value);
             }}
+            classes={{
+              root: classes.root,
+            }}
           />
         </FormControl>
-        <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
+        <FormControl style={{ marginTop: 10, marginBottom: 10 }}>
           <Button
             variant="contained"
             style={{
               backgroundColor: '#1F3137',
               color: 'white',
-              borderRadius: 10,
+              borderRadius: 30,
+              padding: 15,
             }}
             onClick={submitHandler}
           >

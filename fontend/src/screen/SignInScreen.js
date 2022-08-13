@@ -9,9 +9,10 @@ import { Helmet } from 'react-helmet-async';
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
-  textField: {
-    borderRadius: '50%',
-    border: 'solid 1px white',
+  root: {
+    [`& fieldset`]: {
+      borderRadius: 30,
+    },
   },
 });
 
@@ -59,7 +60,7 @@ export default function SignInScreen() {
         {loading && <LoadingBox></LoadingBox>}
         {error && <Messagebox>{error}</Messagebox>}
 
-        <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
+        <FormControl style={{ marginTop: 10, marginBottom: 10 }}>
           <TextField
             required
             id="outlined-basic"
@@ -68,11 +69,13 @@ export default function SignInScreen() {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            className={classes.textField}
+            classes={{
+              root: classes.root,
+            }}
             fullWidth
           />
         </FormControl>
-        <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
+        <FormControl style={{ marginTop: 10, marginBottom: 10 }}>
           <TextField
             id="outlined-basic"
             label="Password"
@@ -81,7 +84,9 @@ export default function SignInScreen() {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
-            className={classes.textField}
+            classes={{
+              root: classes.root,
+            }}
             fullWidth
           />
         </FormControl>
@@ -91,7 +96,8 @@ export default function SignInScreen() {
             style={{
               backgroundColor: '#1F3137',
               color: 'white',
-              borderRadius: 10,
+              borderRadius: 30,
+              padding: 15,
             }}
             onClick={submitHandler}
           >
