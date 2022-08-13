@@ -16,7 +16,7 @@ function Item(props) {
               <CardMedia
                 component="img"
                 image={props.item.image}
-                style={{ height: 300, objectFit: 'cover' }}
+                style={{ height: 300, objectFit: 'cover', padding: 20 }}
               />
             </Card>
           </Grid>

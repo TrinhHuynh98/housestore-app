@@ -95,7 +95,9 @@ export default function OrderHistoryScreen() {
                       style={{
                         borderRadius: 10,
                         backgroundColor: '#D15B5B',
-                        marginop: 10,
+                        marginTop: 10,
+                        padding: 10,
+                        borderRadius: 30,
                       }}
                       onClick={() => navigate(`/order/${order._id}`)}
                     >

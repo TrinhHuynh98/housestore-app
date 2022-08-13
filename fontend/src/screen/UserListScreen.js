@@ -113,51 +113,57 @@ export default function UserListScreen() {
       ) : (
         <>
           <h2 style={{ textAlign: 'center' }}>Edit User</h2>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>EMAIL</th>
-                <th>IS ADMIN</th>
-                <th>ACTIONS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user._id}>
-                  <td>{user._id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.isAdmin ? 'YES' : 'NO'}</td>
-                  <td>
-                    <Button onClick={() => handleClickOpen(user)}>
-                      <EditIcon
-                        style={{
-                          backgroundColor: '#1F3137',
-                          color: 'white',
-                        }}
-                      />
-                    </Button>
-                    <Button onClick={() => deleteUserHandler(user)}>
-                      <DeleteIcon
-                        style={{
-                          backgroundColor: '#1F3137',
-                          color: 'white',
-                        }}
-                      />
-                    </Button>
-                  </td>
+          <div style={{ padding: 40 }}>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>NAME</th>
+                  <th>EMAIL</th>
+                  <th>IS ADMIN</th>
+                  <th>ACTIONS</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {users.map((user) => (
+                  <tr key={user._id}>
+                    <td>{user._id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{user.isAdmin ? 'YES' : 'NO'}</td>
+                    <td>
+                      <Button onClick={() => handleClickOpen(user)}>
+                        <EditIcon
+                          style={{
+                            backgroundColor: '#1F3137',
+                            color: 'white',
+                            borderRadius: 30,
+                            padding: 10,
+                          }}
+                        />
+                      </Button>
+                      <Button onClick={() => deleteUserHandler(user)}>
+                        <DeleteIcon
+                          style={{
+                            backgroundColor: '#1F3137',
+                            color: 'white',
+                            borderRadius: 30,
+                            padding: 10,
+                          }}
+                        />
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </>
       )}
       <Footer />
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Edit Product</DialogTitle>
+        <DialogTitle>Edit User</DialogTitle>
         {loadingUserUpdate && <LoadingBox></LoadingBox>}
         {errorUserUpdate && <Messagebox>{errorUserUpdate}</Messagebox>}
         {userDetailLoading && <LoadingBox></LoadingBox>}
@@ -200,8 +206,35 @@ export default function UserListScreen() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handlUpdateUser}>Update</Button>
+          <Button
+            onClick={handleClose}
+            size="small"
+            variant="contained"
+            style={{
+              backgroundColor: 'white',
+              color: 'white',
+              border: 'solid 1px black',
+              padding: 10,
+              borderRadius: 30,
+              color: 'black',
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handlUpdateUser}
+            size="small"
+            variant="contained"
+            style={{
+              backgroundColor: 'blue',
+              color: 'white',
+              border: 'solid 1px white',
+              padding: 10,
+              borderRadius: 30,
+            }}
+          >
+            Update
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

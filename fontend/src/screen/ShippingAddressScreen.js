@@ -12,10 +12,19 @@ import Footer from '../components/Layout/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveShippingAdresss } from '../actions/cartAction';
 import { useNavigate } from 'react-router-dom';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  root: {
+    [`& fieldset`]: {
+      borderRadius: 30,
+    },
+  },
+});
 
 export default function ShippingAddressScreen() {
   const navigate = useNavigate();
-
+  const classes = useStyles();
   const userSignin = useSelector((state) => state.userSignin);
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
@@ -80,20 +89,6 @@ export default function ShippingAddressScreen() {
     navigate('/payment');
   };
 
-  // const chooseOnMap = () => {
-  //   dispatch(
-  //     saveShippingAdresss({
-  //       fullName,
-  //       address,
-  //       city,
-  //       postalCode,
-  //       country,
-  //       lat,
-  //       lng,
-  //     })
-  //   );
-  //   navigate('/map');
-  // };
   return (
     <div>
       <Helmet>Shipping Adresss</Helmet>
@@ -115,7 +110,9 @@ export default function ShippingAddressScreen() {
             id="standard-required"
             label="Full Name"
             defaultValue={fullName}
-            variant="outlined"
+            classes={{
+              root: classes.root,
+            }}
             onChange={(e) => {
               setFullName(e.target.value);
             }}
@@ -127,7 +124,9 @@ export default function ShippingAddressScreen() {
             id="standard-required"
             label="Adress"
             defaultValue={address}
-            variant="outlined"
+            classes={{
+              root: classes.root,
+            }}
             onChange={(e) => {
               setAddress(e.target.value);
             }}
@@ -139,7 +138,9 @@ export default function ShippingAddressScreen() {
             id="standard-required"
             label="City"
             defaultValue={city}
-            variant="outlined"
+            classes={{
+              root: classes.root,
+            }}
             onChange={(e) => {
               setCity(e.target.value);
             }}
@@ -151,7 +152,9 @@ export default function ShippingAddressScreen() {
             id="standard-required"
             label="Postal Code"
             defaultValue={postalCode}
-            variant="outlined"
+            classes={{
+              root: classes.root,
+            }}
             onChange={(e) => {
               setPostalCode(e.target.value);
             }}
@@ -163,26 +166,28 @@ export default function ShippingAddressScreen() {
             id="standard-required"
             label="Country"
             defaultValue={country}
-            variant="outlined"
+            classes={{
+              root: classes.root,
+            }}
             onChange={(e) => {
               setCountry(e.target.value);
             }}
           />
         </FormControl>
-        {/* <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
-          <Button variant="outlined" onClick={chooseOnMap}>
-            Choose On Map
-          </Button>
-        </FormControl> */}
+
         <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
           <Button
             size="small"
             onClick={shippingHandler}
-            variant="contained"
+            classes={{
+              root: classes.root,
+            }}
             style={{
               backgroundColor: '#1F3137',
               color: 'white',
               border: 'solid 1px white',
+              padding: 10,
+              borderRadius: 30,
             }}
           >
             Continue

@@ -62,7 +62,7 @@ export default function PlaceOrderScreen() {
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           <Grid item xs={8} sm={8} md={8} style={{ marginTop: 20 }}>
-            <Card>
+            <Card style={{ padding: 20, borderRadius: 20 }}>
               <p>
                 <b>Shipping</b>
               </p>
@@ -80,7 +80,7 @@ export default function PlaceOrderScreen() {
               </CardActionArea>
             </Card>
 
-            <Card style={{ marginTop: 10 }}>
+            <Card style={{ marginTop: 20, padding: 20, borderRadius: 20 }}>
               <p>
                 <b>Cart Items</b>
               </p>
@@ -113,7 +113,7 @@ export default function PlaceOrderScreen() {
             <p>
               <b>Order Summary</b>
             </p>
-            <Card sx={{ maxWidth: 345 }}>
+            <Card sx={{ maxWidth: 300, padding: 10 }}>
               <p>Items</p>
               <CardActionArea>
                 <CardContent>
@@ -163,6 +163,8 @@ export default function PlaceOrderScreen() {
                         backgroundColor: '#1F3137',
                         color: 'white',
                         border: 'solid 1px white',
+                        padding: 10,
+                        borderRadius: 30,
                       }}
                     >
                       Place Order

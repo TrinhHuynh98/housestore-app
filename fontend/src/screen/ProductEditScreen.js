@@ -9,8 +9,18 @@ import LoadingBox from '../components/LoadingBox';
 import Messagebox from '../components/Messagebox';
 import { PRODUCT_UPDATE_RESET } from '../constants/productConstants';
 import axios from 'axios';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  root: {
+    [`& fieldset`]: {
+      borderRadius: 30,
+    },
+  },
+});
 
 export default function ProductEditScreen() {
+  const classes = useStyles();
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -118,10 +128,12 @@ export default function ProductEditScreen() {
             label="Name"
             type="text"
             fullWidth
-            variant="standard"
             value={name}
             onChange={(e) => {
               setName(e.target.value);
+            }}
+            classes={{
+              root: classes.root,
             }}
           />
           <TextField
@@ -131,37 +143,15 @@ export default function ProductEditScreen() {
             label="Price"
             type="number"
             fullWidth
-            variant="standard"
             value={price}
             onChange={(e) => {
               setPrice(e.target.value);
             }}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="img"
-            label="Image"
-            type="text"
-            fullWidth
-            value={image}
-            variant="standard"
-            onChange={(e) => {
-              setImage(e.target.value);
+            classes={{
+              root: classes.root,
             }}
           />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="img"
-            label="Choose Image"
-            type="file"
-            fullWidth
-            variant="standard"
-            onChange={uploadFileHandler}
-          />
-          {loadingUpload && <LoadingBox></LoadingBox>}
-          {errorUpload && <Messagebox>{errorUpload}</Messagebox>}
+
           <TextField
             autoFocus
             margin="dense"
@@ -169,10 +159,12 @@ export default function ProductEditScreen() {
             label="Category"
             type="text"
             fullWidth
-            variant="standard"
             value={category}
             onChange={(e) => {
               setCategory(e.target.value);
+            }}
+            classes={{
+              root: classes.root,
             }}
           />
 
@@ -183,10 +175,12 @@ export default function ProductEditScreen() {
             label="Brand"
             type="text"
             fullWidth
-            variant="standard"
             value={brand}
             onChange={(e) => {
               setBrand(e.target.value);
+            }}
+            classes={{
+              root: classes.root,
             }}
           />
 
@@ -197,10 +191,12 @@ export default function ProductEditScreen() {
             label="Count in stock"
             type="number"
             fullWidth
-            variant="standard"
             value={countInStock}
             onChange={(e) => {
               setCountInStock(e.target.value);
+            }}
+            classes={{
+              root: classes.root,
             }}
           />
           <TextField
@@ -208,13 +204,45 @@ export default function ProductEditScreen() {
             label="Description"
             placeholder="description"
             multiline
-            variant="standard"
             fullWidth
             value={description}
             onChange={(e) => {
               setDescription(e.target.value);
             }}
+            classes={{
+              root: classes.root,
+            }}
           />
+
+          <TextField
+            autoFocus
+            margin="dense"
+            id="img"
+            label="Image"
+            type="text"
+            fullWidth
+            value={image}
+            onChange={(e) => {
+              setImage(e.target.value);
+            }}
+            classes={{
+              root: classes.root,
+            }}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="img"
+            label="Choose Image"
+            type="file"
+            fullWidth
+            onChange={uploadFileHandler}
+            classes={{
+              root: classes.root,
+            }}
+          />
+          {loadingUpload && <LoadingBox></LoadingBox>}
+          {errorUpload && <Messagebox>{errorUpload}</Messagebox>}
         </FormControl>
 
         <FormControl style={{ marginTop: 20, marginBottom: 20 }}>
@@ -223,7 +251,9 @@ export default function ProductEditScreen() {
             style={{
               backgroundColor: '#1F3137',
               color: 'white',
-              border: 'solid 1px white',
+              border: 'solid 1px',
+              borderRadius: 30,
+              padding: 20,
             }}
             onClick={submitHandler}
           >

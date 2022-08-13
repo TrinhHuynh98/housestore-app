@@ -79,6 +79,8 @@ export default function PaymentScreen() {
               backgroundColor: '#1F3137',
               color: 'white',
               border: 'solid 1px white',
+              padding: 10,
+              borderRadius: 30,
             }}
           >
             Continue

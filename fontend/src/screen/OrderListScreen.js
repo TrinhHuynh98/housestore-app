@@ -8,7 +8,7 @@ import Footer from '../components/Layout/Footer';
 import { useNavigate } from 'react-router-dom';
 import { deletedOrder, listOrder } from '../actions/orderActions';
 import { ORDER_DELETE_RESET } from '../constants/orderConstants';
-
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function OrderListScreen() {
   const navigate = useNavigate();
@@ -48,58 +48,66 @@ export default function OrderListScreen() {
         <Messagebox>{error}</Messagebox>
       ) : (
         <>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>USER</th>
-                <th>DATE</th>
-                <th>TOTAL</th>
-                <th>PAID</th>
-                <th>DELIVERED</th>
-                <th>ACTION</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order._id}>
-                  <td>{order._id}</td>
-                  <td>{order.user.name}</td>
-                  <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>{order.totalPrice}</td>
-                  <td>{order.isPaid ? order.paidAt.subString(0, 10) : 'No'}</td>
-                  <td>
-                    {order.isDelivered
-                      ? order.deliveredAt.subString(0, 10)
-                      : 'No'}
-                  </td>
-                  <td>
-                    <Button 
-                      variant="contained"
-                      style={{
-                        borderRadius: 10,
-                        backgroundColor: '#D15B5B',
-                        marginTop: 10,
-                      }} 
-                      onClick={() => navigate(`/order/${order._id}`)}>
-                      Details
-                    </Button>
-          
-                    <Button 
-                      variant="contained"
-                      style={{
-                        borderRadius: 10,
-                        backgroundColor: '#D15B5B',
-                        marginTop: 10,
-                      }} 
-                      onClick={() => deleteHandler(order)}
-                      >
-                      Delete</Button>
-                  </td>
+          <h2 style={{ textAlign: 'center' }}>Orders Manage</h2>
+          <div style={{ padding: 40 }}>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>USER</th>
+                  <th>DATE</th>
+                  <th>TOTAL</th>
+                  <th>PAID</th>
+                  <th>DELIVERED</th>
+                  <th>ACTION</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {orders.map((order) => (
+                  <tr key={order._id}>
+                    <td>{order._id}</td>
+                    <td>{order.user.name}</td>
+                    <td>{order.createdAt.substring(0, 10)}</td>
+                    <td>{order.totalPrice}</td>
+                    <td>
+                      {order.isPaid ? order.paidAt.subString(0, 10) : 'No'}
+                    </td>
+                    <td>
+                      {order.isDelivered
+                        ? order.deliveredAt.subString(0, 10)
+                        : 'No'}
+                    </td>
+                    <td>
+                      <Button
+                        variant="contained"
+                        style={{
+                          borderRadius: 10,
+                          backgroundColor: '#D15B5B',
+                          marginTop: 10,
+                          borderRadius: 30,
+                          padding: 10,
+                        }}
+                        onClick={() => navigate(`/order/${order._id}`)}
+                      >
+                        Details
+                      </Button>
+
+                      <Button onClick={() => deleteHandler(order)}>
+                        <DeleteIcon
+                          style={{
+                            backgroundColor: '#1F3137',
+                            color: 'white',
+                            padding: 10,
+                            borderRadius: 30,
+                          }}
+                        />
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </>
       )}
 

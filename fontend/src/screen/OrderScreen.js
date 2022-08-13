@@ -78,7 +78,9 @@ export default function OrderScreen() {
         <Messagebox>{error}</Messagebox>
       ) : (
         <>
-          <Box sx={{ flexGrow: 1, marginLeft: 10, marginRight: 10 }}>
+          <Box
+            sx={{ flexGrow: 1, marginLeft: 10, marginRight: 10, padding: 20 }}
+          >
             <Grid
               container
               spacing={{ xs: 2, md: 3 }}
@@ -123,7 +125,7 @@ export default function OrderScreen() {
                     <Messagebox variant="danger">Not Paid</Messagebox>
                   )}
                 </Card>
-                <Card style={{ marginTop: 10 }}>
+                <Card style={{ marginTop: 10, padding: 20 }}>
                   <p>
                     <b>Cart Items</b>
                   </p>

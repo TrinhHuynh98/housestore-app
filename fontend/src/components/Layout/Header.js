@@ -396,9 +396,12 @@ function Header() {
                   <Tooltip title="User Setting">
                     <Typography
                       style={{
+                        borderRadius: 20,
+                        padding: 10,
                         color: 'black',
-                        marginLeft: 15,
                         cursor: 'pointer',
+                        border: 'solid 1px black',
+                        marginLeft: 20,
                       }}
                       onClick={handleOpenAdminMenu}
                     >
